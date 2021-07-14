@@ -17,7 +17,7 @@
     "prettier": "prettier --check '{src,lib,test,pipeline,stage_vars,scripts}/**/*.{js,json,md,ts,yaml,yml}' './*.{js,json,md,ts,yml,yaml}'",
     "lint": "./node_modules/.bin/eslint -c .eslintrc.js --ext=.ts,.js src/ bin/ lib/",
     "lint:fix": "./node_modules/.bin/eslint -c .eslintrc.js --ext=.ts,.js src/ bin/ lib/ --quiet --fix",
-    "prepare-sam": "rm -rf ./cdk.out && cdk synth --no-staging && cp ./cdk.out/*NodeStarterStack*.json ./sam/template.json",
+    "prepare-sam": "rm -rf ./cdk.out && cdk synth --no-staging && cp ./cdk.out/*LambdaStack*.json ./sam/template.json",
     "sam-event": "npm run bundle-development && sam local invoke -e ./sam/event.json -t ./sam/template.json",
     "cdk": "cdk",
     "test": "jest"

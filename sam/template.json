@@ -31,7 +31,7 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "NodeStarterStack/stack-event-processor-id/ServiceRole/Resource"
+        "aws:cdk:path": "LambdaStack/stack-event-processor-id/ServiceRole/Resource"
       }
     },
     "stackeventprocessoridCCE49B11": {
@@ -39,7 +39,7 @@
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParameters8583ade9f13ba266ee5c65479392cb4929826ea773dd314624256d3f81fc557cS3Bucket28F52FCD"
+            "Ref": "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3BucketCDA54B23"
           },
           "S3Key": {
             "Fn::Join": [
@@ -52,7 +52,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters8583ade9f13ba266ee5c65479392cb4929826ea773dd314624256d3f81fc557cS3VersionKey932AE41D"
+                          "Ref": "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3VersionKeyF64FC30A"
                         }
                       ]
                     }
@@ -65,7 +65,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters8583ade9f13ba266ee5c65479392cb4929826ea773dd314624256d3f81fc557cS3VersionKey932AE41D"
+                          "Ref": "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3VersionKeyF64FC30A"
                         }
                       ]
                     }
@@ -75,48 +75,48 @@
             ]
           }
         },
-        "Handler": "stack-event-processor.handler",
         "Role": {
           "Fn::GetAtt": [
             "stackeventprocessoridServiceRole17E6CCDF",
             "Arn"
           ]
         },
-        "Runtime": "nodejs12.x",
-        "FunctionName": "stack-event-processor"
+        "FunctionName": "stack-event-processor",
+        "Handler": "stack-event-processor.handler",
+        "Runtime": "nodejs14.x"
       },
       "DependsOn": [
         "stackeventprocessoridServiceRole17E6CCDF"
       ],
       "Metadata": {
-        "aws:cdk:path": "NodeStarterStack/stack-event-processor-id/Resource",
-        "aws:asset:path": "/Users/kkolhatkar/sandbox/node-starter/build/stack-event-processor",
+        "aws:cdk:path": "LambdaStack/stack-event-processor-id/Resource",
+        "aws:asset:path": "/Users/kkolhatkar/sandbox/hamlet/user-service/build/stack-event-processor",
         "aws:asset:property": "Code"
       }
     },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Modules": "aws-cdk=1.73.0,@aws-cdk/assets=1.78.0,@aws-cdk/aws-applicationautoscaling=1.78.0,@aws-cdk/aws-autoscaling-common=1.78.0,@aws-cdk/aws-cloudwatch=1.78.0,@aws-cdk/aws-codeguruprofiler=1.78.0,@aws-cdk/aws-ec2=1.78.0,@aws-cdk/aws-ecr=1.78.0,@aws-cdk/aws-ecr-assets=1.78.0,@aws-cdk/aws-events=1.78.0,@aws-cdk/aws-iam=1.78.0,@aws-cdk/aws-kms=1.78.0,@aws-cdk/aws-lambda=1.78.0,@aws-cdk/aws-logs=1.78.0,@aws-cdk/aws-s3=1.78.0,@aws-cdk/aws-s3-assets=1.78.0,@aws-cdk/aws-sqs=1.78.0,@aws-cdk/aws-ssm=1.78.0,@aws-cdk/cloud-assembly-schema=1.78.0,@aws-cdk/core=1.78.0,@aws-cdk/cx-api=1.78.0,@aws-cdk/region-info=1.78.0,jsii-runtime=node.js/v12.9.0"
+        "Analytics": "v2:deflate64:H4sIAAAAAAAAEzWNwQ7CIBBEv6V3upXUxKvWxLOpX7DC2tAWSFjQA+HfLTWe5s1kdkeClD0cmjN+uFV66bLygSA/IqpFXJgpbjgZN4mrdxxDUlFcX+6OAS1FCtWMxD4FRZW3ljbReFdEfZlXtE+NkG/JqRrXzp+LMGghj37dT6sWwX2LdZZhX988DEktFAdkKkU4rwlm7t7yCPIEfTOzMW1ILhpLMP70C5KZF9fXAAAA"
       },
       "Metadata": {
-        "aws:cdk:path": "NodeStarterStack/CDKMetadata/Default"
+        "aws:cdk:path": "LambdaStack/CDKMetadata/Default"
       },
       "Condition": "CDKMetadataAvailable"
     }
   },
   "Parameters": {
-    "AssetParameters8583ade9f13ba266ee5c65479392cb4929826ea773dd314624256d3f81fc557cS3Bucket28F52FCD": {
+    "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3BucketCDA54B23": {
       "Type": "String",
-      "Description": "S3 bucket for asset \"8583ade9f13ba266ee5c65479392cb4929826ea773dd314624256d3f81fc557c\""
+      "Description": "S3 bucket for asset \"5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4c\""
     },
-    "AssetParameters8583ade9f13ba266ee5c65479392cb4929826ea773dd314624256d3f81fc557cS3VersionKey932AE41D": {
+    "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3VersionKeyF64FC30A": {
       "Type": "String",
-      "Description": "S3 key for asset version \"8583ade9f13ba266ee5c65479392cb4929826ea773dd314624256d3f81fc557c\""
+      "Description": "S3 key for asset version \"5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4c\""
     },
-    "AssetParameters8583ade9f13ba266ee5c65479392cb4929826ea773dd314624256d3f81fc557cArtifactHash7403C2D7": {
+    "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cArtifactHash23409763": {
       "Type": "String",
-      "Description": "Artifact hash for asset \"8583ade9f13ba266ee5c65479392cb4929826ea773dd314624256d3f81fc557c\""
+      "Description": "Artifact hash for asset \"5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4c\""
     }
   },
   "Conditions": {
@@ -124,6 +124,14 @@
       "Fn::Or": [
         {
           "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "af-south-1"
+              ]
+            },
             {
               "Fn::Equals": [
                 {
@@ -195,14 +203,6 @@
                 },
                 "cn-northwest-1"
               ]
-            },
-            {
-              "Fn::Equals": [
-                {
-                  "Ref": "AWS::Region"
-                },
-                "eu-central-1"
-              ]
             }
           ]
         },
@@ -213,7 +213,23 @@
                 {
                   "Ref": "AWS::Region"
                 },
+                "eu-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
                 "eu-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-south-1"
               ]
             },
             {
@@ -271,7 +287,11 @@
                 },
                 "us-east-2"
               ]
-            },
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
             {
               "Fn::Equals": [
                 {
