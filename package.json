@@ -1,12 +1,11 @@
 {
-  "name": "node-starter",
+  "name": "hamlet-user-service",
   "version": "1.0.0",
-  "description": "A starter project for node",
-  "main": "src/lambda.js",
+  "description": "This service provides features to manage a user",
   "author": "Kedar Kolhatkar",
   "license": "MIT",
-  "bin": {
-    "node-starter": "bin/node-starter.js"
+  "engines": {
+    "node": ">=16.6"
   },
   "scripts": {
     "build": "tsc",
