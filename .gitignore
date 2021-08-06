@@ -9,4 +9,7 @@ cdk.out
 # Parcel default cache directory
 .parcel-cache
 
+#pythong virtual env
+venv
+
 build

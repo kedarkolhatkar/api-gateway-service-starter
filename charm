@@ -1,0 +1,44 @@
+#!/usr/bin/env python
+import subprocess
+import click
+
+def build():
+    click.echo("Running build command")
+    subprocess.check_call('npm run bundle-lambda', shell=True)
+
+def deploy():
+    click.echo("Running deploy command")
+    subprocess.check_call('cdk deploy', shell=True)
+
+def destroy():
+    click.echo("Running destroy command")
+    subprocess.check_call('cdk destroy', shell=True)
+
+def synth():
+    click.echo("Running synth command")
+    subprocess.check_call('cdk synth', shell=True)
+
+@click.group()
+def cli():
+    pass
+
+@cli.command(name='build')
+def buildCommand():
+    build()
+
+@cli.command(name='deploy')
+def deployCommand():
+    build()
+    deploy()
+
+@cli.command(name='destroy')
+def destroyCommand():
+    destroy()
+
+@cli.command(name='synth')
+def synthCommand():
+    synth()
+
+if __name__ == '__main__':
+    cli()
+

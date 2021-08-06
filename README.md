@@ -22,8 +22,7 @@ You can use either [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.
 - Configure AWS CLI: `aws configure`
 - Install Typescript: `npm -g install typescript`
 - Install aws cdk: https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html
-
-
+- Install Python3: https://opensource.com/article/19/5/python-3-default-mac
 
 ### Download and Setup
 
