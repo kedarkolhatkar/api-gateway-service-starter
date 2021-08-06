@@ -1,0 +1,8 @@
+#!/usr/bin/env python
+import subprocess
+
+print("Build Lambda Function")
+subprocess.check_call('npm run bundle-lambda', shell=True)
+
+print("Deploy Lambda")
+subprocess.check_call('cdk deploy', shell=True)
