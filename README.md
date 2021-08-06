@@ -12,6 +12,15 @@ This is a starter project that includes AWS Lambda Function written using NodeJS
 
 ## Getting Started
 
+### Pre-requisites
+Get your machine ready with the tools you will need for this service
+- git: https://git-scm.com/book/en/v2/Getting-Started-Installing-Git
+- Install Node Version Manager (optional): This is an optional step but highly recommended because in the future I am sure you will need to quickly change to different node version. 
+You can use either [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm). 
+- Install node: https://nodejs.org/en/download/package-manager/
+
+### Download and Setup
+
 - Clone Repository: `git clone https://github.com/kedarkolhatkar/nodejs-cdk-lambda-starter.git`
 - `cd nodejs-cdk-lambda-starter.git`
 - `npm install`
