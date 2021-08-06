@@ -18,6 +18,12 @@ Get your machine ready with the tools you will need for this service
 - Install Node Version Manager (optional): This is an optional step but highly recommended because in the future I am sure you will need to quickly change to different node version. 
 You can use either [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.com/Schniz/fnm). 
 - Install node: https://nodejs.org/en/download/package-manager/
+- Install aws cli: https://docs.aws.amazon.com/cli/latest/userguide/install-cliv2.html
+- Configure AWS CLI: `aws configure`
+- Install Typescript: `npm -g install typescript`
+- Install aws cdk: https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html
+
+
 
 ### Download and Setup
 

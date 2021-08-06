@@ -7,7 +7,7 @@ export class LambdaStack extends cdk.Stack {
     super(scope, id, props);
 
     const srcDirectory = '../build';
-    const lambdaFunctionName = 'stack-event-processor';
+    const lambdaFunctionName = 'user-service-handler';
     const lambdaFunctionSrcDir = `${srcDirectory}/${lambdaFunctionName}`;
     console.log(path.join(__dirname, lambdaFunctionSrcDir));
 
