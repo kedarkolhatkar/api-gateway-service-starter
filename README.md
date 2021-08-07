@@ -41,7 +41,7 @@ You can use either [nvm](https://github.com/nvm-sh/nvm) or [fnm](https://github.
 ## Useful commands
 
 - `npm run bundle-lambda` uses webpack to create a lambda bundlee
-- `./deployCDK.sh` - Deploy lambda to AWS.
+- `./charm deploy` - Deploy lambda to AWS.
 - `npm run prettier` check code formatting using prettier
 - `npm run prettier:fix` fix code formatting using prettier
 - `cdk deploy` deploy this stack to your default AWS account/region

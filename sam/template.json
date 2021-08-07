@@ -1,6 +1,6 @@
 {
   "Resources": {
-    "stackeventprocessoridServiceRole17E6CCDF": {
+    "userservicehandleridServiceRoleAEF1BC0F": {
       "Type": "AWS::IAM::Role",
       "Properties": {
         "AssumeRolePolicyDocument": {
@@ -31,15 +31,15 @@
         ]
       },
       "Metadata": {
-        "aws:cdk:path": "LambdaStack/stack-event-processor-id/ServiceRole/Resource"
+        "aws:cdk:path": "LambdaStack/user-service-handler-id/ServiceRole/Resource"
       }
     },
-    "stackeventprocessoridCCE49B11": {
+    "userservicehandleridB5F252C6": {
       "Type": "AWS::Lambda::Function",
       "Properties": {
         "Code": {
           "S3Bucket": {
-            "Ref": "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3BucketCDA54B23"
+            "Ref": "AssetParameters2adfd774874ef21a4524f6236a46f3d141afb10af984f44bfab9464dacbd6452S3BucketAF1542B1"
           },
           "S3Key": {
             "Fn::Join": [
@@ -52,7 +52,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3VersionKeyF64FC30A"
+                          "Ref": "AssetParameters2adfd774874ef21a4524f6236a46f3d141afb10af984f44bfab9464dacbd6452S3VersionKeyD964A00B"
                         }
                       ]
                     }
@@ -65,7 +65,7 @@
                       "Fn::Split": [
                         "||",
                         {
-                          "Ref": "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3VersionKeyF64FC30A"
+                          "Ref": "AssetParameters2adfd774874ef21a4524f6236a46f3d141afb10af984f44bfab9464dacbd6452S3VersionKeyD964A00B"
                         }
                       ]
                     }
@@ -77,27 +77,27 @@
         },
         "Role": {
           "Fn::GetAtt": [
-            "stackeventprocessoridServiceRole17E6CCDF",
+            "userservicehandleridServiceRoleAEF1BC0F",
             "Arn"
           ]
         },
-        "FunctionName": "stack-event-processor",
-        "Handler": "stack-event-processor.handler",
+        "FunctionName": "user-service-handler",
+        "Handler": "user-service-handler.handler",
         "Runtime": "nodejs14.x"
       },
       "DependsOn": [
-        "stackeventprocessoridServiceRole17E6CCDF"
+        "userservicehandleridServiceRoleAEF1BC0F"
       ],
       "Metadata": {
-        "aws:cdk:path": "LambdaStack/stack-event-processor-id/Resource",
-        "aws:asset:path": "/Users/kkolhatkar/sandbox/hamlet/user-service/build/stack-event-processor",
+        "aws:cdk:path": "LambdaStack/user-service-handler-id/Resource",
+        "aws:asset:path": "/Users/kedarkol/myprojects/hamlet-user-service/build/user-service-handler",
         "aws:asset:property": "Code"
       }
     },
     "CDKMetadata": {
       "Type": "AWS::CDK::Metadata",
       "Properties": {
-        "Analytics": "v2:deflate64:H4sIAAAAAAAAEzWNwQ7CIBBEv6V3upXUxKvWxLOpX7DC2tAWSFjQA+HfLTWe5s1kdkeClD0cmjN+uFV66bLygSA/IqpFXJgpbjgZN4mrdxxDUlFcX+6OAS1FCtWMxD4FRZW3ljbReFdEfZlXtE+NkG/JqRrXzp+LMGghj37dT6sWwX2LdZZhX988DEktFAdkKkU4rwlm7t7yCPIEfTOzMW1ILhpLMP70C5KZF9fXAAAA"
+        "Analytics": "v2:deflate64:H4sIAAAAAAAAEzWNwQ7CIBBEv6V3upWY1KvWxLOpX7DC2tAWSFjQA+HfLTWe5s1kdkeClCc4NGf8cKv00mXlA0F+RFSLuDBT3HAybhJX7ziGpKK4vtwdA1qKFKoZiX0KiipvLW2i8a6I+jKvaJ8aId+SUzWunT8XYdBCHv26n1Ytgo8t1lmGfX3zMCS1UByQqRThvCaYuXvLHnqQzczGtCG5aCzB+NMvFtve4NYAAAA="
       },
       "Metadata": {
         "aws:cdk:path": "LambdaStack/CDKMetadata/Default"
@@ -106,17 +106,17 @@
     }
   },
   "Parameters": {
-    "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3BucketCDA54B23": {
+    "AssetParameters2adfd774874ef21a4524f6236a46f3d141afb10af984f44bfab9464dacbd6452S3BucketAF1542B1": {
       "Type": "String",
-      "Description": "S3 bucket for asset \"5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4c\""
+      "Description": "S3 bucket for asset \"2adfd774874ef21a4524f6236a46f3d141afb10af984f44bfab9464dacbd6452\""
     },
-    "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cS3VersionKeyF64FC30A": {
+    "AssetParameters2adfd774874ef21a4524f6236a46f3d141afb10af984f44bfab9464dacbd6452S3VersionKeyD964A00B": {
       "Type": "String",
-      "Description": "S3 key for asset version \"5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4c\""
+      "Description": "S3 key for asset version \"2adfd774874ef21a4524f6236a46f3d141afb10af984f44bfab9464dacbd6452\""
     },
-    "AssetParameters5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4cArtifactHash23409763": {
+    "AssetParameters2adfd774874ef21a4524f6236a46f3d141afb10af984f44bfab9464dacbd6452ArtifactHash89853ABD": {
       "Type": "String",
-      "Description": "Artifact hash for asset \"5651c0bc1b0ba83ca3ba1c623f64de22392694319dddcf36de1c6b25d72c1b4c\""
+      "Description": "Artifact hash for asset \"2adfd774874ef21a4524f6236a46f3d141afb10af984f44bfab9464dacbd6452\""
     }
   },
   "Conditions": {
