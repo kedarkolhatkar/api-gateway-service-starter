@@ -12,6 +12,8 @@ This is a starter project that includes AWS Lambda Function written using NodeJS
 
 ## Getting Started
 
+Let's get started
+
 ### Pre-requisites
 
 Get your machine ready with the tools you will need for this service
