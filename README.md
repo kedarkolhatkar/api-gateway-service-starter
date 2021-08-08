@@ -43,9 +43,9 @@ Get your machine ready with the tools you will need for this service
 - `cd nodejs-cdk-lambda-starter.git`
 - `npm install`
 - AWS Credentials: Ensure that you have AWS credentials setup
-- `./charm`
+- `./charm deploy`
 
-# Local Testing using SAM Local
+## Local Testing using SAM Local
 
 - Ensure that AWS SAM is installed on your machine. Here is a link for instructions to install SAM on MAC: https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install-mac.html
 - `npm run sam-prepare` - This step is needed only once. This will synthacize a CloudFormation template using `cdk synth` and then copy the templatt to `./sam` folder.
@@ -60,3 +60,14 @@ Get your machine ready with the tools you will need for this service
 - `cdk deploy` deploy this stack to your default AWS account/region
 - `cdk diff` compare deployed stack with current state
 - `cdk synth` emits the synthesized CloudFormation template
+
+## Common git actions
+
+### Rebase branch 'topic' with main
+
+```
+git checkout topic
+git rebase main
+git switch main
+git merge topic
+```
