@@ -19,7 +19,8 @@
     "prepare-sam": "rm -rf ./cdk.out && cdk synth --no-staging && cp ./cdk.out/*LambdaStack*.json ./sam/template.json",
     "sam-event": "npm run bundle-development && sam local invoke -e ./sam/event.json -t ./sam/template.json",
     "cdk": "cdk",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@aws-cdk/assert": "^1.113.0",
@@ -39,6 +40,7 @@
     "eslint-plugin-no-loops": "^0.3.0",
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "^7.0.1",
     "jest": "^27.0.6",
     "prettier": "^2.3.2",
     "ts-jest": "^27.0.3",
