@@ -71,3 +71,10 @@ git rebase main
 git switch main
 git merge topic
 ```
+
+### Delete branch 'topic' from local and remote
+
+```
+git branch -d topic
+git push origin --delete topic
+```
