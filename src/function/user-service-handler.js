@@ -6,8 +6,19 @@ async function waitFor() {
 const handler = async (event) => {
   console.log('Lambda function called');
   console.log(`event: ${JSON.stringify(event)}`);
-  await waitFor();
-  console.log('executing after waitFor');
+
+  const user = {
+    userId: '1',
+    firstName: 'Radha',
+    lastName: 'Krishna'
+  };
+
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify(user)
+  }
+
+  return response;
 };
 
 export { handler };
