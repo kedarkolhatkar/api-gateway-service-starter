@@ -1,7 +1,3 @@
-async function waitFor() {
-  console.log('waitFor called');
-  return Promise.resolve('success');
-}
 
 const handler = async (event) => {
   console.log('Lambda function called');
