@@ -27,14 +27,23 @@ Get your machine ready with the tools you will need for this service
 - Install Typescript: `npm -g install typescript`
 - Install aws cdk: https://docs.aws.amazon.com/cdk/latest/guide/getting_started.html
 - Install Python3: https://opensource.com/article/19/5/python-3-default-mac
+- Install and Configure Prettier App: https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+  - Add following to VSCode Settings (Shortcut to open settings: cmd+shift+p and search for "Preferrences: OpenSettings(JSON))
+  ```"editor.formatOnSave": true,
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "[javascript]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode",
+          "editor.formatOnSave": true
+      }
+  ```
 
-### Download and Setup
+### Download and Setup the repository
 
 - Clone Repository: `git clone https://github.com/kedarkolhatkar/nodejs-cdk-lambda-starter.git`
 - `cd nodejs-cdk-lambda-starter.git`
 - `npm install`
 - AWS Credentials: Ensure that you have AWS credentials setup
-- `./deployCDK.sh`
+- `./charm`
 
 # Local Testing using SAM Local
 
