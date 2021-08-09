@@ -1,5 +1,50 @@
 {
-  "verion": 0,
-  "key1": "value1",
-  "key2": "value2"
+  "resource": "/{proxy+}",
+  "path": "/user/1",
+  "httpMethod": "GET",
+  "headers": null,
+  "multiValueHeaders": null,
+  "queryStringParameters": {
+    "qp1": "10",
+    "qp2": "20"
+  },
+  "multiValueQueryStringParameters": null,
+  "pathParameters": {
+    "proxy": "user/1"
+  },
+  "stageVariables": null,
+  "requestContext": {
+    "resourceId": "9he8c9",
+    "resourcePath": "/{proxy+}",
+    "httpMethod": "GET",
+    "extendedRequestId": "DuZ8hFFHoAMFytA=",
+    "requestTime": "08/Aug/2021:02:10:36 +0000",
+    "path": "/{proxy+}",
+    "accountId": "729288039836",
+    "protocol": "HTTP/1.1",
+    "stage": "test-invoke-stage",
+    "domainPrefix": "testPrefix",
+    "requestTimeEpoch": 1628388636740,
+    "requestId": "a63376d8-0119-4935-9cbc-ec9e84a9cafe",
+    "identity": {
+      "cognitoIdentityPoolId": null,
+      "cognitoIdentityId": null,
+      "apiKey": "test-invoke-api-key",
+      "principalOrgId": null,
+      "cognitoAuthenticationType": null,
+      "userArn": "arn:aws:iam::729288039836:user/kkadmin",
+      "apiKeyId": "test-invoke-api-key-id",
+      "userAgent": "aws-internal/3 aws-sdk-java/1.11.1030 Linux/5.4.116-64.217.amzn2int.x86_64 OpenJDK_64-Bit_Server_VM/25.292-b10 java/1.8.0_292 vendor/Oracle_Corporation cfg/retry-mode/legacy",
+      "accountId": "729288039836",
+      "caller": "AIDAJGEZTFOGG4YUA2M3Y",
+      "sourceIp": "test-invoke-source-ip",
+      "accessKey": "ASIA2TTHULWOLV5S2AUF",
+      "cognitoAuthenticationProvider": null,
+      "user": "AIDAJGEZTFOGG4YUA2M3Y"
+    },
+    "domainName": "testPrefix.testDomainName",
+    "apiId": "5q0w52i1ei"
+  },
+  "body": null,
+  "isBase64Encoded": false
 }

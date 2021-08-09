@@ -31,6 +31,7 @@
     "@types/node": "16.3.1",
     "@typescript-eslint/eslint-plugin": "^4.28.3",
     "@typescript-eslint/parser": "^4.28.3",
+    "babel-jest": "^27.0.6",
     "babel-loader": "^8.2.2",
     "eslint": "^7.30.0",
     "eslint-config-airbnb": "^18.2.1",
@@ -53,6 +54,10 @@
     "@aws-cdk/aws-apigateway": "^1.117.0",
     "@aws-cdk/aws-lambda": "^1.113.0",
     "@aws-cdk/core": "^1.113.0",
+    "@middy/core": "^2.5.0",
+    "@middy/http-error-handler": "^2.5.0",
+    "@middy/http-json-body-parser": "^2.5.0",
+    "@middy/validator": "^2.5.0",
     "source-map-support": "^0.5.16"
   }
 }
