@@ -16,7 +16,7 @@ module.exports = {
   },
   overrides: [
     {
-      files: ['src/**/*.js', 'e2e/**/*.js'],
+      files: ['src/**/*.js', 'test/**/*.js'],
       rules: {
         //     '@typescript-eslint/no-floating-promises': 'off',
         //     '@typescript-eslint/await-thenable': 'off',
@@ -46,6 +46,8 @@ module.exports = {
         'no-new': 'warn',
         'import/no-cycle': 'warn',
         'no-unused-vars': 'warn',
+        'import/extensions': 'off',
+        'import/no-unresolved': 'off',
       },
     },
   ],

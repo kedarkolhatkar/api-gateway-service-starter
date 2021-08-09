@@ -1,9 +1,7 @@
-const getUser = (userId) => {
-  return {
-    userId,
-    firstName: 'Radha',
-    lastName: 'Krishna',
-  };
-};
+const getUser = (userId) => ({
+  userId,
+  firstName: 'Radha',
+  lastName: 'Krishna',
+});
 
 export { getUser };

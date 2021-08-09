@@ -9,32 +9,31 @@ const getResourceFromPath = (path) => {
   return pathArray[1];
 };
 
-const handleUserRequest = (path, httpMethod, queryStringParameters) => {
+const handleUserRequest = (path, httpMethod) => {
   const pathArray = path.split('/');
 
   switch (httpMethod) {
     case 'GET':
-      const userId = pathArray[2];
-      return getUser(userId);
+      return getUser(pathArray[2]);
     default:
       throw new Error('Invalid httpMethod in the event: ', httpMethod);
   }
 };
 
 const baseHandler = async (event) => {
-  console.log('Lambda function called');
-  console.log(`event: ${JSON.stringify(event)}`);
-  console.log('httpMethod: ', event.httpMethod);
-  console.log('path: ', event.path);
-  console.log('pathParameters: ', event.pathParameters);
-  console.log('queryStringParameters: ', event.queryStringParameters);
+  // console.log('Lambda function called');
+  // console.log(`event: ${JSON.stringify(event)}`);
+  // console.log('httpMethod: ', event.httpMethod);
+  // console.log('path: ', event.path);
+  // console.log('pathParameters: ', event.pathParameters);
+  // console.log('queryStringParameters: ', event.queryStringParameters);
 
   const resource = getResourceFromPath(event.path);
 
   let result = {};
   switch (resource) {
     case 'user':
-      result = handleUserRequest(event.path, event.httpMethod, event.queryStringParameters);
+      result = handleUserRequest(event.path, event.httpMethod);
       break;
     default:
       throw new Error('Unsupported resource: ', resource);
