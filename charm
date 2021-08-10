@@ -18,6 +18,12 @@ def synth():
     click.echo("Running synth command")
     subprocess.check_call('cdk synth', shell=True)
 
+def precommit():
+    click.echo("Running precommit tasks")
+    subprocess.check_call('npm run prettier', shell=True)
+    subprocess.check_call('npm run lint', shell=True)
+    subprocess.check_call('npm test', shell=True)
+
 @click.group()
 def cli():
     pass
@@ -38,6 +44,10 @@ def destroyCommand():
 @cli.command(name='synth')
 def synthCommand():
     synth()
+
+@cli.command(name='precommit')
+def precommitCommand():
+    precommit()
 
 if __name__ == '__main__':
     cli()

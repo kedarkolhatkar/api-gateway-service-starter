@@ -421,6 +421,19 @@ Object {
             ],
           },
         },
+        "Environment": Object {
+          "Variables": Object {
+            "USER_TABLE_ARN": Object {
+              "Fn::GetAtt": Array [
+                "usertableidAEEC5C09",
+                "Arn",
+              ],
+            },
+            "USER_TABLE_NAME": Object {
+              "Ref": "usertableidAEEC5C09",
+            },
+          },
+        },
         "FunctionName": "user-service-handler",
         "Handler": "user-service-handler.handler",
         "Role": Object {
@@ -463,6 +476,30 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
+    },
+    "usertableidAEEC5C09": Object {
+      "DeletionPolicy": "Retain",
+      "Properties": Object {
+        "AttributeDefinitions": Array [
+          Object {
+            "AttributeName": "userId",
+            "AttributeType": "S",
+          },
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "KeySchema": Array [
+          Object {
+            "AttributeName": "userId",
+            "KeyType": "HASH",
+          },
+        ],
+        "SSESpecification": Object {
+          "SSEEnabled": true,
+        },
+        "TableName": "user-table",
+      },
+      "Type": "AWS::DynamoDB::Table",
+      "UpdateReplacePolicy": "Retain",
     },
   },
 }
