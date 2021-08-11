@@ -1,4 +1,4 @@
-import { getUser } from '../../src/service/user-service';
+import { getUserService } from '../../src/service/user-service';
 
 test('getUser-success', () => {
   const expectedUser = {
@@ -7,5 +7,5 @@ test('getUser-success', () => {
     lastName: 'Krishna',
   };
 
-  expect(expectedUser).toEqual(getUser(1));
+  expect(expectedUser).toEqual(getUserService('user-table').getUser(1));
 });

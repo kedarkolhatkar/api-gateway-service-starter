@@ -32,16 +32,16 @@ Object {
     },
   },
   "Parameters": Object {
-    "AssetParameters3ad28a1ae9e4d289da4fdaff8d2b9631e2a0bc2679eabe2449927b8bc6a4048fArtifactHash472BB4A8": Object {
-      "Description": "Artifact hash for asset \\"3ad28a1ae9e4d289da4fdaff8d2b9631e2a0bc2679eabe2449927b8bc6a4048f\\"",
+    "AssetParameters9c0b2d51ed692e3a9ea2097baf70c726de299f1e7ac1fb483cbfa71a9d6fc99fArtifactHash4E819A95": Object {
+      "Description": "Artifact hash for asset \\"9c0b2d51ed692e3a9ea2097baf70c726de299f1e7ac1fb483cbfa71a9d6fc99f\\"",
       "Type": "String",
     },
-    "AssetParameters3ad28a1ae9e4d289da4fdaff8d2b9631e2a0bc2679eabe2449927b8bc6a4048fS3BucketD93C2F4B": Object {
-      "Description": "S3 bucket for asset \\"3ad28a1ae9e4d289da4fdaff8d2b9631e2a0bc2679eabe2449927b8bc6a4048f\\"",
+    "AssetParameters9c0b2d51ed692e3a9ea2097baf70c726de299f1e7ac1fb483cbfa71a9d6fc99fS3Bucket7BE8B500": Object {
+      "Description": "S3 bucket for asset \\"9c0b2d51ed692e3a9ea2097baf70c726de299f1e7ac1fb483cbfa71a9d6fc99f\\"",
       "Type": "String",
     },
-    "AssetParameters3ad28a1ae9e4d289da4fdaff8d2b9631e2a0bc2679eabe2449927b8bc6a4048fS3VersionKey6791BC8B": Object {
-      "Description": "S3 key for asset version \\"3ad28a1ae9e4d289da4fdaff8d2b9631e2a0bc2679eabe2449927b8bc6a4048f\\"",
+    "AssetParameters9c0b2d51ed692e3a9ea2097baf70c726de299f1e7ac1fb483cbfa71a9d6fc99fS3VersionKey5A886B9C": Object {
+      "Description": "S3 key for asset version \\"9c0b2d51ed692e3a9ea2097baf70c726de299f1e7ac1fb483cbfa71a9d6fc99f\\"",
       "Type": "String",
     },
   },
@@ -380,12 +380,13 @@ Object {
     },
     "userservicehandleridB5F252C6": Object {
       "DependsOn": Array [
+        "userservicehandleridServiceRoleDefaultPolicyCF7C345B",
         "userservicehandleridServiceRoleAEF1BC0F",
       ],
       "Properties": Object {
         "Code": Object {
           "S3Bucket": Object {
-            "Ref": "AssetParameters3ad28a1ae9e4d289da4fdaff8d2b9631e2a0bc2679eabe2449927b8bc6a4048fS3BucketD93C2F4B",
+            "Ref": "AssetParameters9c0b2d51ed692e3a9ea2097baf70c726de299f1e7ac1fb483cbfa71a9d6fc99fS3Bucket7BE8B500",
           },
           "S3Key": Object {
             "Fn::Join": Array [
@@ -398,7 +399,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters3ad28a1ae9e4d289da4fdaff8d2b9631e2a0bc2679eabe2449927b8bc6a4048fS3VersionKey6791BC8B",
+                          "Ref": "AssetParameters9c0b2d51ed692e3a9ea2097baf70c726de299f1e7ac1fb483cbfa71a9d6fc99fS3VersionKey5A886B9C",
                         },
                       ],
                     },
@@ -411,7 +412,7 @@ Object {
                       "Fn::Split": Array [
                         "||",
                         Object {
-                          "Ref": "AssetParameters3ad28a1ae9e4d289da4fdaff8d2b9631e2a0bc2679eabe2449927b8bc6a4048fS3VersionKey6791BC8B",
+                          "Ref": "AssetParameters9c0b2d51ed692e3a9ea2097baf70c726de299f1e7ac1fb483cbfa71a9d6fc99fS3VersionKey5A886B9C",
                         },
                       ],
                     },
@@ -429,9 +430,7 @@ Object {
                 "Arn",
               ],
             },
-            "USER_TABLE_NAME": Object {
-              "Ref": "usertableidAEEC5C09",
-            },
+            "USER_TABLE_NAME": "user-table",
           },
         },
         "FunctionName": "user-service-handler",
@@ -476,6 +475,49 @@ Object {
         ],
       },
       "Type": "AWS::IAM::Role",
+    },
+    "userservicehandleridServiceRoleDefaultPolicyCF7C345B": Object {
+      "Properties": Object {
+        "PolicyDocument": Object {
+          "Statement": Array [
+            Object {
+              "Action": Array [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem",
+              ],
+              "Effect": "Allow",
+              "Resource": Array [
+                Object {
+                  "Fn::GetAtt": Array [
+                    "usertableidAEEC5C09",
+                    "Arn",
+                  ],
+                },
+                Object {
+                  "Ref": "AWS::NoValue",
+                },
+              ],
+            },
+          ],
+          "Version": "2012-10-17",
+        },
+        "PolicyName": "userservicehandleridServiceRoleDefaultPolicyCF7C345B",
+        "Roles": Array [
+          Object {
+            "Ref": "userservicehandleridServiceRoleAEF1BC0F",
+          },
+        ],
+      },
+      "Type": "AWS::IAM::Policy",
     },
     "usertableidAEEC5C09": Object {
       "DeletionPolicy": "Retain",

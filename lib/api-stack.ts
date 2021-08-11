@@ -38,9 +38,11 @@ export class APIGatewayStack extends cdk.Stack {
       code: lambda.Code.fromAsset(path.join(__dirname, lambdaFunctionSrcDir)),
       environment: {
         USER_TABLE_ARN: userTable.tableArn,
-        USER_TABLE_NAME: userTable.tableName,
+        USER_TABLE_NAME: userTableName,
       },
     });
+
+    userTable.grantReadWriteData(backend);
 
     // Create User API
     const api = new apigateway.LambdaRestApi(this, 'user-api', {

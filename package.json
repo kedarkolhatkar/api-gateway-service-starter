@@ -16,8 +16,9 @@
     "prettier": "prettier --check '{src,lib,test,pipeline,stage_vars,scripts}/**/*.{js,json,md,ts,yaml,yml}' './*.{js,json,md,ts,yml,yaml}'",
     "lint": "./node_modules/.bin/eslint -c .eslintrc.js --ext=.ts,.js src/ bin/ lib/",
     "lint:fix": "./node_modules/.bin/eslint -c .eslintrc.js --ext=.ts,.js src/ bin/ lib/ --quiet --fix",
-    "prepare-sam": "rm -rf ./cdk.out && cdk synth --no-staging && cp ./cdk.out/*LambdaStack*.json ./sam/template.json",
-    "sam-event": "npm run bundle-development && sam local invoke -e ./sam/event.json -t ./sam/template.json",
+    "prepare-sam": "rm -rf ./cdk.out && cdk synth --no-staging && cp ./cdk.out/*APIStack*.json ./sam/APIStack-template.json",
+    "sam-get-user": "npm run bundle-development && sam local invoke -e ./sam/get-user-event.json -t ./sam/APIStack-template.json",
+    "sam-create-user": "npm run bundle-development && sam local invoke -e ./sam/create-user-event.json -t ./sam/APIStack-template.json",
     "cdk": "cdk",
     "test": "jest",
     "prepare": "husky install"
@@ -55,10 +56,12 @@
     "@aws-cdk/aws-dynamodb": "^1.117.0",
     "@aws-cdk/aws-lambda": "^1.113.0",
     "@aws-cdk/core": "^1.113.0",
+    "@aws-sdk/client-dynamodb": "^3.25.0",
     "@middy/core": "^2.5.0",
     "@middy/http-error-handler": "^2.5.0",
     "@middy/http-json-body-parser": "^2.5.0",
     "@middy/validator": "^2.5.0",
-    "source-map-support": "^0.5.16"
+    "source-map-support": "^0.5.16",
+    "uuid": "^8.3.2"
   }
 }

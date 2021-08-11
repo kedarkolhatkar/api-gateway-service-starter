@@ -1,0 +1,798 @@
+{
+  "Description": "The API stack for user-service. This is a root level stack for the user microservice.",
+  "Resources": {
+    "usertableidAEEC5C09": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "userId",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "userId",
+            "AttributeType": "S"
+          }
+        ],
+        "BillingMode": "PAY_PER_REQUEST",
+        "SSESpecification": {
+          "SSEEnabled": true
+        },
+        "TableName": "user-table"
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-table-id/Resource"
+      }
+    },
+    "userservicehandleridServiceRoleAEF1BC0F": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-service-handler-id/ServiceRole/Resource"
+      }
+    },
+    "userservicehandleridServiceRoleDefaultPolicyCF7C345B": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": [
+                "dynamodb:BatchGetItem",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator",
+                "dynamodb:Query",
+                "dynamodb:GetItem",
+                "dynamodb:Scan",
+                "dynamodb:ConditionCheckItem",
+                "dynamodb:BatchWriteItem",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem"
+              ],
+              "Effect": "Allow",
+              "Resource": [
+                {
+                  "Fn::GetAtt": [
+                    "usertableidAEEC5C09",
+                    "Arn"
+                  ]
+                },
+                {
+                  "Ref": "AWS::NoValue"
+                }
+              ]
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "userservicehandleridServiceRoleDefaultPolicyCF7C345B",
+        "Roles": [
+          {
+            "Ref": "userservicehandleridServiceRoleAEF1BC0F"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-service-handler-id/ServiceRole/DefaultPolicy/Resource"
+      }
+    },
+    "userservicehandleridB5F252C6": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersf7938a98d6a4d21cf897f06a76bff7b44688213049f2c2255d6e45471d66a27aS3BucketBE6D74E6"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersf7938a98d6a4d21cf897f06a76bff7b44688213049f2c2255d6e45471d66a27aS3VersionKey340C995B"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersf7938a98d6a4d21cf897f06a76bff7b44688213049f2c2255d6e45471d66a27aS3VersionKey340C995B"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Role": {
+          "Fn::GetAtt": [
+            "userservicehandleridServiceRoleAEF1BC0F",
+            "Arn"
+          ]
+        },
+        "Environment": {
+          "Variables": {
+            "USER_TABLE_ARN": {
+              "Fn::GetAtt": [
+                "usertableidAEEC5C09",
+                "Arn"
+              ]
+            },
+            "USER_TABLE_NAME": "user-table"
+          }
+        },
+        "FunctionName": "user-service-handler",
+        "Handler": "user-service-handler.handler",
+        "Runtime": "nodejs14.x"
+      },
+      "DependsOn": [
+        "userservicehandleridServiceRoleDefaultPolicyCF7C345B",
+        "userservicehandleridServiceRoleAEF1BC0F"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-service-handler-id/Resource",
+        "aws:asset:path": "/Users/kedarkol/myprojects/hamlet-user-service/build/user-service-handler",
+        "aws:asset:property": "Code"
+      }
+    },
+    "userapiD4BE445D": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Description": "This service provides functionality to manager users",
+        "Name": "userServiceAPI"
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Resource"
+      }
+    },
+    "userapiCloudWatchRoleAE5A4CA7": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+              ]
+            ]
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/CloudWatchRole/Resource"
+      }
+    },
+    "userapiAccount42697875": {
+      "Type": "AWS::ApiGateway::Account",
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "userapiCloudWatchRoleAE5A4CA7",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "userapiD4BE445D"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Account"
+      }
+    },
+    "userapiDeploymentC9949C0F6344040d2a3371d564553789eeb98c0c": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "userapiD4BE445D"
+        },
+        "Description": "Automatically created by the RestApi construct"
+      },
+      "DependsOn": [
+        "userapiproxyANY20A17C16",
+        "userapiproxy24E6BE40",
+        "userapiANY29A688AE"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Deployment/Resource"
+      }
+    },
+    "userapiDeploymentStageprod950E1A85": {
+      "Type": "AWS::ApiGateway::Stage",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "userapiD4BE445D"
+        },
+        "DeploymentId": {
+          "Ref": "userapiDeploymentC9949C0F6344040d2a3371d564553789eeb98c0c"
+        },
+        "StageName": "prod"
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/DeploymentStage.prod/Resource"
+      }
+    },
+    "userapiproxy24E6BE40": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "userapiD4BE445D",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "{proxy+}",
+        "RestApiId": {
+          "Ref": "userapiD4BE445D"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Default/{proxy+}/Resource"
+      }
+    },
+    "userapiproxyANYApiPermissionAPIStackuserapiA33BCDE8ANYproxyBBC88BFC": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "userservicehandleridB5F252C6",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "userapiD4BE445D"
+              },
+              "/",
+              {
+                "Ref": "userapiDeploymentStageprod950E1A85"
+              },
+              "/*/*"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Default/{proxy+}/ANY/ApiPermission.APIStackuserapiA33BCDE8.ANY..{proxy+}"
+      }
+    },
+    "userapiproxyANYApiPermissionTestAPIStackuserapiA33BCDE8ANYproxyAEE2FF86": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "userservicehandleridB5F252C6",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "userapiD4BE445D"
+              },
+              "/test-invoke-stage/*/*"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Default/{proxy+}/ANY/ApiPermission.Test.APIStackuserapiA33BCDE8.ANY..{proxy+}"
+      }
+    },
+    "userapiproxyANY20A17C16": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "ANY",
+        "ResourceId": {
+          "Ref": "userapiproxy24E6BE40"
+        },
+        "RestApiId": {
+          "Ref": "userapiD4BE445D"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "userservicehandleridB5F252C6",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Default/{proxy+}/ANY/Resource"
+      }
+    },
+    "userapiANYApiPermissionAPIStackuserapiA33BCDE8ANYA0F82F79": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "userservicehandleridB5F252C6",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "userapiD4BE445D"
+              },
+              "/",
+              {
+                "Ref": "userapiDeploymentStageprod950E1A85"
+              },
+              "/*/"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Default/ANY/ApiPermission.APIStackuserapiA33BCDE8.ANY.."
+      }
+    },
+    "userapiANYApiPermissionTestAPIStackuserapiA33BCDE8ANY4E71A80D": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "userservicehandleridB5F252C6",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "userapiD4BE445D"
+              },
+              "/test-invoke-stage/*/"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Default/ANY/ApiPermission.Test.APIStackuserapiA33BCDE8.ANY.."
+      }
+    },
+    "userapiANY29A688AE": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "ANY",
+        "ResourceId": {
+          "Fn::GetAtt": [
+            "userapiD4BE445D",
+            "RootResourceId"
+          ]
+        },
+        "RestApiId": {
+          "Ref": "userapiD4BE445D"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationHttpMethod": "POST",
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "userservicehandleridB5F252C6",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/user-api/Default/ANY/Resource"
+      }
+    },
+    "CDKMetadata": {
+      "Type": "AWS::CDK::Metadata",
+      "Properties": {
+        "Analytics": "v2:deflate64:H4sIAAAAAAAAE02Q3U7DMAyFn2X3qUeFNG7phnYFoiq8gJuYkrVJqvwwqqjvTpOyqVf+7Ng5Pi6hLJ/gYfeMV1dw0e8jN5YgfnjkPWvImWA5sco58kutk7pjJ6Odt4F7dvrSNVpU5Mmm5D34MeTyfXLhpV9IL42eWVKJYtKojGghfmI75JYMMxtQtQIhnoPmaSA9bbkmq6Rz+SuJCmJj1vkcazNIPuW+TDNzjwWmzR1kA0sOx8B78kd0xHCUHXq64gTxNSsvW/tqlP8GblhxboL27IXGwUyKdHa4ydJh8hor3Lxnkdqa32l7jTu/kf82IpVWmueZaSMILm7/Ux7gAOXu4qQs7CIuFUGzxj/bOjASswEAAA=="
+      },
+      "Metadata": {
+        "aws:cdk:path": "APIStack/CDKMetadata/Default"
+      },
+      "Condition": "CDKMetadataAvailable"
+    }
+  },
+  "Parameters": {
+    "AssetParametersf7938a98d6a4d21cf897f06a76bff7b44688213049f2c2255d6e45471d66a27aS3BucketBE6D74E6": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"f7938a98d6a4d21cf897f06a76bff7b44688213049f2c2255d6e45471d66a27a\""
+    },
+    "AssetParametersf7938a98d6a4d21cf897f06a76bff7b44688213049f2c2255d6e45471d66a27aS3VersionKey340C995B": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"f7938a98d6a4d21cf897f06a76bff7b44688213049f2c2255d6e45471d66a27a\""
+    },
+    "AssetParametersf7938a98d6a4d21cf897f06a76bff7b44688213049f2c2255d6e45471d66a27aArtifactHashBE7E9FAB": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"f7938a98d6a4d21cf897f06a76bff7b44688213049f2c2255d6e45471d66a27a\""
+    }
+  },
+  "Outputs": {
+    "userapiEndpoint2656FFE6": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "userapiD4BE445D"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            },
+            "/",
+            {
+              "Ref": "userapiDeploymentStageprod950E1A85"
+            },
+            "/"
+          ]
+        ]
+      }
+    }
+  },
+  "Conditions": {
+    "CDKMetadataAvailable": {
+      "Fn::Or": [
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "af-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-northeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ap-southeast-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "ca-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "cn-northwest-1"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-central-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-north-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-2"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "eu-west-3"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "me-south-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "sa-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-east-2"
+              ]
+            }
+          ]
+        },
+        {
+          "Fn::Or": [
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-1"
+              ]
+            },
+            {
+              "Fn::Equals": [
+                {
+                  "Ref": "AWS::Region"
+                },
+                "us-west-2"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -1,42 +1,39 @@
 import middy from '@middy/core';
 import jsonBodyParser from '@middy/http-json-body-parser';
 import httpErrorHandler from '@middy/http-error-handler';
-import { getUser } from '../service/user-service';
+import { getUserService } from '../service/user-service';
 
 const getResourceFromPath = (path) => {
   const pathArray = path.split('/');
-  console.log(pathArray);
   return pathArray[1];
 };
 
-const handleUserRequest = (path, httpMethod) => {
-  const pathArray = path.split('/');
-
-  switch (httpMethod) {
-    case 'GET':
-      return getUser(pathArray[2]);
-    default:
-      throw new Error('Invalid httpMethod in the event: ', httpMethod);
+const validateResource = (resource) => {
+  if (resource !== 'user') {
+    throw new Error('Invalide resource provide: ', resource);
   }
 };
 
 const baseHandler = async (event) => {
-  // console.log('Lambda function called');
-  // console.log(`event: ${JSON.stringify(event)}`);
-  // console.log('httpMethod: ', event.httpMethod);
-  // console.log('path: ', event.path);
-  // console.log('pathParameters: ', event.pathParameters);
-  // console.log('queryStringParameters: ', event.queryStringParameters);
+  // console.log(`baseHandler event: ${JSON.stringify(event)}`);
 
   const resource = getResourceFromPath(event.path);
+  validateResource(resource);
+  const userService = getUserService(process.env.USER_TABLE_NAME);
 
   let result = {};
-  switch (resource) {
-    case 'user':
-      result = handleUserRequest(event.path, event.httpMethod);
+
+  const pathArray = event.path.split('/');
+
+  switch (event.httpMethod) {
+    case 'GET':
+      result = await userService.getUser(pathArray[2]);
+      break;
+    case 'PUT':
+      result = await userService.createUser(event.body);
       break;
     default:
-      throw new Error('Unsupported resource: ', resource);
+      throw new Error('Invalid httpMethod in the event: ', event.httpMethod);
   }
 
   return {
