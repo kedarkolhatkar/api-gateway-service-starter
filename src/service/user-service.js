@@ -24,8 +24,6 @@ const getUserService = (userTableName) => {
    * @returns user ID of saved user item
    */
   const createUser = async (user) => {
-    const client = new DynamoDBClient({ region: process.env.AWS_REGION });
-
     const userId = uuidv4();
 
     const item = {
@@ -39,13 +37,16 @@ const getUserService = (userTableName) => {
       Item: item,
     };
 
+    const client = new DynamoDBClient({ region: process.env.AWS_REGION });
     const command = new PutItemCommand(input);
 
     try {
-      await client.send(command);
+      const response = await client.send(command);
+      console.log(JSON.stringify(response, null, 2));
       return { userId };
     } catch (error) {
-      throw new Error(`Error saving user in the database: user: ${JSON.stringify(user)}`, error);
+      console.log(`Error: ${error}`);
+      throw Error('Error saving user in the database: user: ', error);
     }
   };
 
