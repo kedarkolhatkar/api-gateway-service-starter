@@ -17,8 +17,8 @@
     "lint": "./node_modules/.bin/eslint -c .eslintrc.js --ext=.ts,.js src/ bin/ lib/",
     "lint:fix": "./node_modules/.bin/eslint -c .eslintrc.js --ext=.ts,.js src/ bin/ lib/ --quiet --fix",
     "prepare-sam": "rm -rf ./cdk.out && cdk synth --no-staging && cp ./cdk.out/*APIStack*.json ./sam/APIStack-template.json",
-    "sam-get-user": "npm run bundle-development && sam local invoke -e ./sam/get-user-event.json -t ./sam/APIStack-template.json",
-    "sam-create-user": "npm run bundle-development && sam local invoke -e ./sam/create-user-event.json -t ./sam/APIStack-template.json",
+    "sam-get-user": "npm run bundle-development && sam local invoke -e ./sam/get-user-event.json -t ./sam/APIStack-template.json 2>&1 | tr \"\r\" \"\n\"",
+    "sam-create-user": "npm run bundle-development && sam local invoke -e ./sam/create-user-event.json -t ./sam/APIStack-template.json 2>&1 | tr \"\r\" \"\n\"",
     "cdk": "cdk",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -63,6 +63,7 @@
     "@middy/http-error-handler": "^2.5.0",
     "@middy/http-json-body-parser": "^2.5.0",
     "@middy/validator": "^2.5.0",
+    "http-errors": "^1.8.0",
     "source-map-support": "^0.5.16",
     "uuid": "^8.3.2"
   }
