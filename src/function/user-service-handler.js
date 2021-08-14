@@ -5,7 +5,7 @@ import { getUserService } from '../service/user-service';
 
 const validate = (event) => {
   if (!event.resource || event.resource !== '/users') {
-    throw new createHttpError.BadRequest('Invalid resource provided: ', resource);
+    throw new createHttpError.BadRequest('Invalid resource provided: ', event.resource);
   }
 };
 
