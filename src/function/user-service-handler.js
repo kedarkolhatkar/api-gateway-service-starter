@@ -19,7 +19,8 @@ const baseHandler = async (event) => {
 
   const resource = getResourceFromPath(event.path);
   validateResource(resource);
-  const userService = getUserService(process.env.USER_TABLE_NAME);
+  // const userService = getUserService(process.env.USER_TABLE_NAME);
+  const userService = getUserService('test');
 
   let result = {};
 

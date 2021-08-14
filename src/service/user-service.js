@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import createHttpError from 'http-errors';
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 
 /**
@@ -42,11 +43,9 @@ const getUserService = (userTableName) => {
 
     try {
       const response = await client.send(command);
-      console.log(JSON.stringify(response, null, 2));
       return { userId };
     } catch (error) {
-      console.log(`Error: ${error}`);
-      throw Error('Error saving user in the database: user: ', error);
+      throw new createHttpError.InternalServerError(`Error saving user in the database: ${error}`);
     }
   };
 
