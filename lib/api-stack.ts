@@ -49,6 +49,14 @@ export class APIGatewayStack extends cdk.Stack {
       restApiName: props.restApiName,
       description: props.apiDescription,
       handler: backend,
+      proxy: false,
     });
+
+    const users = api.root.addResource('users');
+    users.addMethod('GET');
+    users.addMethod('PUT');
+
+    const user = users.addResource('{user}');
+    user.addMethod('GET');
   }
 }

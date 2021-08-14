@@ -1,30 +1,26 @@
 {
-  "resource": "/{proxy+}",
-  "path": "/user",
+  "resource": "/users",
+  "path": "/users",
   "httpMethod": "PUT",
-  "headers": {
-    "Content-type": "application/json"
-  },
+  "headers": null,
   "multiValueHeaders": null,
   "queryStringParameters": null,
   "multiValueQueryStringParameters": null,
-  "pathParameters": {
-    "proxy": "user"
-  },
+  "pathParameters": null,
   "stageVariables": null,
   "requestContext": {
-    "resourceId": "9he8c9",
-    "resourcePath": "/{proxy+}",
+    "resourceId": "jt9ftb",
+    "resourcePath": "/users",
     "httpMethod": "PUT",
-    "extendedRequestId": "DuZ8hFFHoAMFytA=",
-    "requestTime": "08/Aug/2021:02:10:36 +0000",
-    "path": "/{proxy+}",
+    "extendedRequestId": "EEtQzEKPoAMF2DA=",
+    "requestTime": "14/Aug/2021:20:34:25 +0000",
+    "path": "/users",
     "accountId": "729288039836",
     "protocol": "HTTP/1.1",
     "stage": "test-invoke-stage",
     "domainPrefix": "testPrefix",
-    "requestTimeEpoch": 1628388636740,
-    "requestId": "a63376d8-0119-4935-9cbc-ec9e84a9cafe",
+    "requestTimeEpoch": 1628973265769,
+    "requestId": "448eb965-96a2-4ed7-a35a-cea3a7de531c",
     "identity": {
       "cognitoIdentityPoolId": null,
       "cognitoIdentityId": null,
@@ -37,16 +33,13 @@
       "accountId": "729288039836",
       "caller": "AIDAJGEZTFOGG4YUA2M3Y",
       "sourceIp": "test-invoke-source-ip",
-      "accessKey": "ASIA2TTHULWOLV5S2AUF",
+      "accessKey": "ASIA2TTHULWOKYZWYRNN",
       "cognitoAuthenticationProvider": null,
       "user": "AIDAJGEZTFOGG4YUA2M3Y"
     },
     "domainName": "testPrefix.testDomainName",
     "apiId": "5q0w52i1ei"
   },
-  "body": {
-    "firstName": "Kedar",
-    "lastName": "Kolhatkar"
-  },
+  "body": "{\n    \"firstName\": \"Kedar\",\n    \"lastName\": \"Kolhatkar\"\n}",
   "isBase64Encoded": false
 }

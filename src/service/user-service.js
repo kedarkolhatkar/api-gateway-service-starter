@@ -42,7 +42,7 @@ const getUserService = (userTableName) => {
     const command = new PutItemCommand(input);
 
     try {
-      const response = await client.send(command);
+      await client.send(command);
       return { userId };
     } catch (error) {
       throw new createHttpError.InternalServerError(`Error saving user in the database: ${error}`);
