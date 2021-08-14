@@ -3,8 +3,8 @@ import httpErrorHandler from '@middy/http-error-handler';
 import createHttpError from 'http-errors';
 import { getUserService } from '../service/user-service';
 
-const validateResource = (resource) => {
-  if (resource !== '/users') {
+const validate = (event) => {
+  if (!event.resource || event.resource !== '/users') {
     throw new createHttpError.BadRequest('Invalid resource provided: ', resource);
   }
 };
@@ -12,14 +12,14 @@ const validateResource = (resource) => {
 const baseHandler = async (event) => {
   console.log(`baseHandler event: ${JSON.stringify(event)}`);
 
-  validateResource(event.resource);
+  validate(event);
   const userService = getUserService(process.env.USER_TABLE_NAME);
   // const userService = getUserService('test');
 
   let result = {};
 
   // TODO: We need to build path router
-  switch (event.httpMethod) {
+  switch (event.httpMethod.toUpperCase()) {
     case 'GET':
       result = await userService.getUser(event.pathParameters.user);
       break;
