@@ -1,0 +1,14 @@
+{
+	"id": "69661934-0a88-4c50-bad4-64c77eabd44b",
+	"name": "integration-tests",
+	"values": [
+		{
+			"key": "baseUrl",
+			"value": "https://5q0w52i1ei.execute-api.us-east-1.amazonaws.com/prod",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2021-08-15T03:29:57.674Z",
+	"_postman_exported_using": "Postman/8.10.0"
+}
