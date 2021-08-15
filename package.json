@@ -46,6 +46,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^7.0.1",
     "jest": "^27.0.6",
+    "lint-staged": "^11.1.2",
     "prettier": "^2.3.2",
     "ts-jest": "^27.0.3",
     "ts-node": "^10.1.0",
@@ -66,5 +67,9 @@
     "http-errors": "^1.8.0",
     "source-map-support": "^0.5.16",
     "uuid": "^8.3.2"
+  },
+  "lint-staged": {
+    "*.{ts,js}": "./node_modules/.bin/eslint -c .eslintrc.js --ext=.ts,.js src/ bin/ lib/",
+    "*.{js,css,md}": "prettier --check '{src,lib,test,pipeline,stage_vars,scripts}/**/*.{js,json,md,ts,yaml,yml}' './*.{js,json,md,ts,yml,yaml}'"
   }
 }
