@@ -1,18 +1,13 @@
 import middy from '@middy/core';
 import httpErrorHandler from '@middy/http-error-handler';
 import createHttpError from 'http-errors';
+import { validateRequest } from './http-handler-utils';
 import { getUserService } from '../service/user-service';
-
-const validate = (event) => {
-  if (!event.resource || event.resource !== '/users') {
-    throw new createHttpError.BadRequest('Invalid resource provided: ', event.resource);
-  }
-};
 
 const baseHandler = async (event) => {
   console.log(`baseHandler event: ${JSON.stringify(event)}`);
 
-  validate(event);
+  validateRequest(event);
   const userService = getUserService(process.env.USER_TABLE_NAME);
   // const userService = getUserService('test');
 
