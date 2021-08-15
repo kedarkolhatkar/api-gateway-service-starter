@@ -4,6 +4,7 @@ import createHttpError from 'http-errors';
 import { validateRequest } from './http-handler-utils';
 import { getUserService } from '../service/user-service';
 
+// base handler
 const baseHandler = async (event) => {
   console.log(`baseHandler event: ${JSON.stringify(event)}`);
 
