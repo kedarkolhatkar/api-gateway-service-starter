@@ -1,98 +1,84 @@
 {
-	"info": {
-		"_postman_id": "1b2fcae1-00bc-4ec6-bd72-7399d870add9",
-		"name": "Integration Tests",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
-		{
-			"name": "get-user-success",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
-							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"Returned user has correct attributes\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.userId).to.eql(\"1\");",
-							"    pm.expect(jsonData.firstName).to.eql(\"Radha\");",
-							"    pm.expect(jsonData.lastName).to.eql(\"Krishna\");",
-							"});",
-							"",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{baseUrl}}/users/1",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"users",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "create-user-success",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Successful POST request\", function () {",
-							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
-							"});",
-							"pm.test(\"userId is not null\", function () {",
-							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.userId).to.be.not.null;",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Kedar\",\n    \"lastName\": \"Kolhatkar\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "https://5q0w52i1ei.execute-api.us-east-1.amazonaws.com/prod/users",
-					"protocol": "https",
-					"host": [
-						"5q0w52i1ei",
-						"execute-api",
-						"us-east-1",
-						"amazonaws",
-						"com"
-					],
-					"path": [
-						"prod",
-						"users"
-					]
-				}
-			},
-			"response": []
-		}
-	]
+  "info": {
+    "_postman_id": "1b2fcae1-00bc-4ec6-bd72-7399d870add9",
+    "name": "Integration Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "get-user-success",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Returned user has correct attributes\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.userId).to.eql(\"1\");",
+              "    pm.expect(jsonData.firstName).to.eql(\"Radha\");",
+              "    pm.expect(jsonData.lastName).to.eql(\"Krishna\");",
+              "});",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/1",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "1"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "create-user-success",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Successful POST request\", function () {",
+              "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
+              "});",
+              "pm.test(\"userId is not null\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.userId).to.be.not.null;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"firstName\": \"Kedar\",\n    \"lastName\": \"Kolhatkar\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://5q0w52i1ei.execute-api.us-east-1.amazonaws.com/prod/users",
+          "protocol": "https",
+          "host": ["5q0w52i1ei", "execute-api", "us-east-1", "amazonaws", "com"],
+          "path": ["prod", "users"]
+        }
+      },
+      "response": []
+    }
+  ]
 }
