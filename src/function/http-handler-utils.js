@@ -1,4 +1,5 @@
 import createHttpError from 'http-errors';
+
 const getResourceName = (resource) => {
   const pathArray = resource.split('/');
 
