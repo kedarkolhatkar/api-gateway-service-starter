@@ -24,6 +24,10 @@ def precommit():
     subprocess.check_call('npm run lint', shell=True)
     subprocess.check_call('npm test', shell=True)
 
+def lintstaged():
+    click.echo("Running lintstaged tasks")
+    subprocess.check_call('npx lint-staged', shell=True)
+
 def runIntegrationTests():
     click.echo('Running integration tests')
     subprocess.check_call('newman run ./test/integration/integration-tests.postman-collection.json -e ./test/integration/integration-tests.postman-environment.json', shell=True)
@@ -52,6 +56,10 @@ def synthCommand():
 @cli.command(name='precommit')
 def precommitCommand():
     precommit()
+
+@cli.command(name='lintstaged')
+def lintstagedCommand():
+    lintstaged()
 
 @cli.command(name='run-integration-tests')
 def runIntegrationTestsCommand():

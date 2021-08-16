@@ -41,13 +41,15 @@ module.exports = {
       },
     },
     {
-      files: ['bin/**/*.ts', 'lib/**/*.ts'],
+      files: ['bin/**/*.ts', 'lib/**/*.ts', 'pipeline/**/*.ts'],
       rules: {
         'no-new': 'warn',
         'import/no-cycle': 'warn',
         'no-unused-vars': 'warn',
         'import/extensions': 'off',
         'import/no-unresolved': 'off',
+        'no-useless-constructor': 'warn',
+        'import/no-extraneous-dependencies': 'warn',
       },
     },
   ],

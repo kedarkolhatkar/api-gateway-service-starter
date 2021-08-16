@@ -25,7 +25,6 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@aws-cdk/assert": "^1.113.0",
     "@babel/core": "^7.14.6",
     "@babel/plugin-transform-runtime": "^7.14.5",
     "@babel/preset-env": "^7.14.7",
@@ -55,6 +54,7 @@
     "webpack-cli": "^4.7.2"
   },
   "dependencies": {
+    "@aws-cdk/assert": "^1.113.0",
     "@aws-cdk/aws-apigateway": "^1.117.0",
     "@aws-cdk/aws-dynamodb": "^1.117.0",
     "@aws-cdk/aws-lambda": "^1.113.0",
@@ -69,7 +69,7 @@
     "uuid": "^8.3.2"
   },
   "lint-staged": {
-    "*.{ts,js}": "./node_modules/.bin/eslint -c .eslintrc.js --ext=.ts,.js src/ bin/ lib/",
+    "*.{ts,js}": "npm run lint",
     "*.{js,css,md}": "prettier --check '{src,lib,test,pipeline,stage_vars,scripts}/**/*.{js,json,md,ts,yaml,yml}' './*.{js,json,md,ts,yml,yaml}'"
   }
 }
