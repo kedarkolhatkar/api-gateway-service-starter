@@ -15,4 +15,4 @@ const apiGatewayStackProps = {
 } as APIGatewayStackProps;
 
 // eslint-disable-next-line no-new
-new APIGatewayStack(app, 'APIStack', apiGatewayStackProps);
+new APIGatewayStack(app, 'user-service-apistack', apiGatewayStackProps);
