@@ -5,7 +5,7 @@
   "author": "Kedar Kolhatkar",
   "license": "MIT",
   "engines": {
-    "node": ">=16.6"
+    "node": ">=14"
   },
   "scripts": {
     "build": "tsc",
