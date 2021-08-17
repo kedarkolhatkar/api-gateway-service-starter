@@ -4,9 +4,15 @@ phases:
   install:
     commands:
       - echo Entered the install phase
+      - node --version
+      - npm --version
+      - npm install
   build:
     commands:
       - echo Entered the build phase
+      - npm run bundle-lambda
+      - npm run prettier
+      - npm run lint
   post_build:
     commands:
       - echo Entered the post_build phase
