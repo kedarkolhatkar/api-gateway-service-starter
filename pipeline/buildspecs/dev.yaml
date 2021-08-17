@@ -11,7 +11,7 @@ phases:
       - echo $CODEBUILD_SOURCE_DIR
       - node --version
       - npm --version
-      - whcih python
+      - which python
       - npm install -g npm@7.20.3
       - npm --version
       - npm install
