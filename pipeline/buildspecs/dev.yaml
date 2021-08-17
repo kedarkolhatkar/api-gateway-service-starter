@@ -6,7 +6,8 @@ phases:
       - echo Entered the install phase
       - node --version
       - npm --version
-      - npm install
+      - npm install -g npm@7.20.3
+      - npm --version
   build:
     commands:
       - echo Entered the build phase
