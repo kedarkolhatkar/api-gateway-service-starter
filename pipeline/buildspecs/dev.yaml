@@ -24,6 +24,8 @@ phases:
       - npm run bundle-lambda
       - npm run prettier
       - npm run lint
+      - echo Deploy user-service
+      - cdk deploy
   post_build:
     commands:
       - echo Entered the post_build phase
