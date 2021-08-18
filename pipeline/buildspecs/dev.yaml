@@ -16,6 +16,7 @@ phases:
       - npm --version
       - npm install
       - npm install -g aws-cdk
+      - aws --version
       - cdk --version
   build:
     commands:
@@ -23,7 +24,6 @@ phases:
       - npm run bundle-lambda
       - npm run prettier
       - npm run lint
-      - cdk deploy
   post_build:
     commands:
       - echo Entered the post_build phase
