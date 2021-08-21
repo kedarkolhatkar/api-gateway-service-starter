@@ -25,7 +25,7 @@ phases:
       - npm run prettier
       - npm run lint
       - echo Deploy user-service
-      - cdk deploy
+      - cdk deploy --verbose
   post_build:
     commands:
       - echo Entered the post_build phase
