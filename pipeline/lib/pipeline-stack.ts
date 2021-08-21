@@ -4,6 +4,7 @@ import * as codepipeline from '@aws-cdk/aws-codepipeline';
 import * as codepipelineActions from '@aws-cdk/aws-codepipeline-actions';
 import { LogGroup } from '@aws-cdk/aws-logs';
 import { Effect, PolicyStatement, Role } from '@aws-cdk/aws-iam';
+import { Cache } from '@aws-cdk/aws-codebuild';
 
 export interface PipelineStackProps extends cdk.StackProps {
   projectName: string;
@@ -27,6 +28,7 @@ export class PipelineStack extends cdk.Stack {
       projectName: `${finalProps.serviceName}-build-project`,
       description: `This code build project for ${finalProps.serviceName} compiles, unit tests and deploys to development environment`,
       buildSpec: codebuild.BuildSpec.fromSourceFilename('pipeline/buildspecs/dev.yaml'),
+      cache: Cache.local(codebuild.LocalCacheMode.SOURCE),
       concurrentBuildLimit: 1,
       environment: {
         buildImage: codebuild.LinuxBuildImage.STANDARD_5_0,
