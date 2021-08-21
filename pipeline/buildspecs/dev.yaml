@@ -18,6 +18,8 @@ phases:
       - npm install -g aws-cdk
       - aws --version
       - cdk --version
+      - npm install -g newman'
+      - newman --version
   build:
     commands:
       - echo Entered the build phase
@@ -26,6 +28,7 @@ phases:
       - npm run lint
       - echo Deploy user-service
       - cdk deploy
+      - newman run test/integration/integration-tests.postman-collection.json -e test/integration/integration-tests.postman-environment.json
   post_build:
     commands:
       - echo Entered the post_build phase

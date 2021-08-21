@@ -98,6 +98,7 @@ export class PipelineStack extends cdk.Stack {
     // TODO: Use SecretManager to get token
     new codepipeline.Pipeline(this, `${finalProps.serviceName}-pipeline`, {
       restartExecutionOnUpdate: true,
+
       stages: [
         {
           stageName: 'Source',

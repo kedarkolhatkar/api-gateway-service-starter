@@ -72,10 +72,9 @@
           }
         },
         "url": {
-          "raw": "https://5q0w52i1ei.execute-api.us-east-1.amazonaws.com/prod/users",
-          "protocol": "https",
-          "host": ["5q0w52i1ei", "execute-api", "us-east-1", "amazonaws", "com"],
-          "path": ["prod", "users"]
+          "raw": "{{baseUrl}}/users",
+          "host": "{{baseUrl}}",
+          "path": ["users"]
         }
       },
       "response": []
