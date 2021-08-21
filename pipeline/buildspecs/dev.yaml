@@ -18,7 +18,7 @@ phases:
       - npm install -g aws-cdk
       - aws --version
       - cdk --version
-      - npm install -g newman'
+      - npm install -g newman
       - newman --version
   build:
     commands:
