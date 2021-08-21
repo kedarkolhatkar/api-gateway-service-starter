@@ -11,7 +11,7 @@ const pipelineStackProps = {
   repoName: 'hamlet-user-service',
   repoOwner: 'kedarkolhatkar',
   repoAccessTokenName: 'hamlet-github-token',
-  branch: 'HAMLET-10-create-pipeline',
+  branch: 'main',
 } as PipelineStackProps;
 
 new PipelineStack(app, `user-service-PipelineStack`, pipelineStackProps);
