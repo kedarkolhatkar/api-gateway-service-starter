@@ -17,6 +17,11 @@ const getUserService = (userTableName) => {
     const client = new DynamoDBClient({ region: process.env.AWS_REGION });
     const input = {
       TableName: userTableName,
+      Key: {
+        userId: {
+          S: id,
+        },
+      },
     };
 
     const command = new GetItemCommand(input);
@@ -28,7 +33,7 @@ const getUserService = (userTableName) => {
         lastName: 'Krishna',
       };
     } catch (error) {
-      throw new createHttpError.InternalServerError(`Error saving user in the database: ${error}`);
+      throw new createHttpError.InternalServerError(`Error getting user from database: ${error}`);
     }
   };
 
