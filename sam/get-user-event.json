@@ -43,7 +43,7 @@
   "queryStringParameters": null,
   "multiValueQueryStringParameters": null,
   "pathParameters": {
-    "user": "0c7d87e1-b753-4149-841b-a75beabdf9ac1"
+    "user": "0c7d87e1-b753-4149-841b-a75beabdf9ac"
   },
   "stageVariables": null,
   "requestContext": {
