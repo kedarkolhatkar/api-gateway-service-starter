@@ -1,7 +1,7 @@
 {
   "info": {
     "_postman_id": "1b2fcae1-00bc-4ec6-bd72-7399d870add9",
-    "name": "Integration Tests",
+    "name": "IntegrationTests",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "item": [
@@ -47,13 +47,15 @@
           "listen": "test",
           "script": {
             "exec": [
-              "pm.test(\"Successful POST request\", function () {",
+              "pm.test(\"Successful PUT request\", function () {",
               "    pm.expect(pm.response.code).to.be.oneOf([200, 201]);",
               "});",
-              "pm.test(\"userId is not null\", function () {",
+              "pm.test(\"is is not null\", function () {",
               "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData.userId).to.be.not.null;",
-              "});"
+              "    pm.expect()",
+              "    pm.expect(jsonData.id).to.be.not.null;",
+              "});",
+              ""
             ],
             "type": "text/javascript"
           }
@@ -64,7 +66,7 @@
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\n    \"firstName\": \"Kedar\",\n    \"lastName\": \"Kolhatkar\"\n}",
+          "raw": "{\n    \"username\": \"kkolhatkar\",\n    \"firstName\": \"Kedar\",\n    \"lastName\": \"Kolhatkar\"\n}",
           "options": {
             "raw": {
               "language": "json"
@@ -73,7 +75,7 @@
         },
         "url": {
           "raw": "{{baseUrl}}/users",
-          "host": "{{baseUrl}}",
+          "host": ["{{baseUrl}}"],
           "path": ["users"]
         }
       },

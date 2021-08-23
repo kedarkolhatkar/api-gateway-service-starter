@@ -4,6 +4,7 @@ import * as path from 'path';
 import * as apigateway from '@aws-cdk/aws-apigateway';
 import * as dynamodb from '@aws-cdk/aws-dynamodb';
 import { TableEncryption } from '@aws-cdk/aws-dynamodb';
+import { ModelBuilder } from './models';
 
 /**
  *
@@ -52,11 +53,32 @@ export class APIGatewayStack extends cdk.Stack {
       proxy: false,
     });
 
+    const modelBuilder = new ModelBuilder(api);
+    const models = modelBuilder.buildModels();
+    const requestValidators = modelBuilder.buildValidators();
+
+    // Build resources and methods
     const users = api.root.addResource('users');
-    users.addMethod('GET');
-    users.addMethod('PUT');
+
+    users.addMethod('PUT', undefined, {
+      operationName: 'Create User',
+      requestModels: {
+        'application/json': models.createUserRequestModel,
+      },
+      methodResponses: [
+        {
+          statusCode: '201',
+          responseModels: {
+            'application/json': models.createUserResponseModel,
+          },
+        },
+      ],
+      requestValidator: requestValidators.bodyOnlyValidator,
+    });
 
     const user = users.addResource('{user}');
-    user.addMethod('GET');
+    user.addMethod('GET', undefined, {
+      operationName: 'Get user by Id',
+    });
   }
 }
