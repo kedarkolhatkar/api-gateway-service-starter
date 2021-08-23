@@ -2,7 +2,8 @@ import { RestApi, JsonSchemaType, Model, RequestValidator } from '@aws-cdk/aws-a
 
 export interface UserServiceModels {
   createUserRequestModel: Model;
-  createUserResponseModel: Model;
+  createUserSuccessResponseModel: Model;
+  internalErrorResponseModel: Model;
 }
 
 export interface UserServiceValidators {
@@ -38,8 +39,8 @@ export class ModelBuilder {
       description: 'Model for request object for createUser API method',
     });
 
-    const createUserResponseModel = this.restApi.addModel('create-user-response-model-id', {
-      modelName: 'createUserResponseModel',
+    const createUserSuccessResponseModel = this.restApi.addModel('create-user-response-model-id', {
+      modelName: 'createUserSuccessResponseModel',
       schema: {
         type: JsonSchemaType.OBJECT,
         properties: {
@@ -53,9 +54,25 @@ export class ModelBuilder {
       description: 'Model for response object for createUser API method',
     });
 
+    const internalErrorResponseModel = this.restApi.addModel('inter-error-response-model-id', {
+      modelName: 'internalErrorResponseModel',
+      schema: {
+        type: JsonSchemaType.OBJECT,
+        properties: {
+          errorCode: {
+            type: JsonSchemaType.STRING,
+          },
+          message: {
+            type: JsonSchemaType.STRING,
+          },
+        },
+      },
+    });
+
     return {
       createUserRequestModel,
-      createUserResponseModel,
+      createUserSuccessResponseModel,
+      internalErrorResponseModel,
     };
   }
 

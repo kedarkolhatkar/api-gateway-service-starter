@@ -69,7 +69,16 @@ export class APIGatewayStack extends cdk.Stack {
         {
           statusCode: '201',
           responseModels: {
-            'application/json': models.createUserResponseModel,
+            'application/json': models.createUserSuccessResponseModel,
+          },
+        },
+        {
+          statusCode: '400',
+        },
+        {
+          statusCode: '500',
+          responseModels: {
+            'application/json': models.internalErrorResponseModel,
           },
         },
       ],
