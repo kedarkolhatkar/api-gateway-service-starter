@@ -4,6 +4,7 @@ export interface UserServiceModels {
   createUserRequestModel: Model;
   createUserSuccessResponseModel: Model;
   internalErrorResponseModel: Model;
+  getUserResponseModel: Model;
 }
 
 export interface UserServiceValidators {
@@ -32,6 +33,14 @@ export class ModelBuilder {
           lastName: {
             type: JsonSchemaType.STRING,
           },
+          primaryEmail: {
+            type: JsonSchemaType.STRING,
+            format: 'email',
+          },
+          primaryPhone: {
+            type: JsonSchemaType.STRING,
+            pattern: '^d{3}-d{2}-d{4}$',
+          },
         },
         required: ['username', 'firstName', 'lastName'],
       },
@@ -46,6 +55,7 @@ export class ModelBuilder {
         properties: {
           id: {
             type: JsonSchemaType.STRING,
+            format: 'uuid',
           },
         },
         required: ['id'],
@@ -69,10 +79,44 @@ export class ModelBuilder {
       },
     });
 
+    const getUserResponseModel = this.restApi.addModel('get-user-response-model-id', {
+      modelName: 'getUserResponseModel',
+      schema: {
+        type: JsonSchemaType.OBJECT,
+        properties: {
+          id: {
+            type: JsonSchemaType.STRING,
+            format: 'uuid',
+          },
+          username: {
+            type: JsonSchemaType.STRING,
+          },
+          firstName: {
+            type: JsonSchemaType.STRING,
+          },
+          lastName: {
+            type: JsonSchemaType.STRING,
+          },
+          primaryEmail: {
+            type: JsonSchemaType.STRING,
+            format: 'email',
+          },
+          primaryPhone: {
+            type: JsonSchemaType.STRING,
+            pattern: '^d{3}-d{2}-d{4}$',
+          },
+        },
+        required: ['id', 'username', 'firstName', 'lastName'],
+      },
+      contentType: 'application/json',
+      description: 'Model for response object for getUser API method',
+    });
+
     return {
       createUserRequestModel,
       createUserSuccessResponseModel,
       internalErrorResponseModel,
+      getUserResponseModel,
     };
   }
 

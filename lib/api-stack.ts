@@ -88,6 +88,23 @@ export class APIGatewayStack extends cdk.Stack {
     const user = users.addResource('{user}');
     user.addMethod('GET', undefined, {
       operationName: 'Get user by Id',
+      methodResponses: [
+        {
+          statusCode: '200',
+          responseModels: {
+            'application/json': models.getUserResponseModel,
+          },
+        },
+        {
+          statusCode: '404',
+        },
+        {
+          statusCode: '500',
+          responseModels: {
+            'application/json': models.internalErrorResponseModel,
+          },
+        },
+      ],
     });
   }
 }

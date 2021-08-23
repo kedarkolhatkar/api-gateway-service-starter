@@ -41,7 +41,7 @@ module.exports = {
       },
     },
     {
-      files: ['bin/**/*.ts', 'lib/**/*.ts', 'pipeline/**/*.ts'],
+      files: ['bin/**/*.ts', 'lib/**/*.ts', 'pipeline/**/*.ts', 'test/**/*.ts'],
       rules: {
         'no-new': 'warn',
         'import/no-cycle': 'warn',

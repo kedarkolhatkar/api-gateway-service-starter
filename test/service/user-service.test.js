@@ -1,5 +1,6 @@
 import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { mockClient } from 'aws-sdk-client-mock';
+import { beforeEach, test, expect } from '@jest/globals';
 import { getUserService } from '../../src/service/user-service';
 import { isValidUUID } from '../utils/test-util';
 
@@ -10,9 +11,9 @@ beforeEach(() => {
   dynamoDBMock.reset();
 });
 
-test('getUser-success', () => {
+test('get-user-success', () => {
   const expectedUser = {
-    userId: 1,
+    id: 1,
     firstName: 'Radha',
     lastName: 'Krishna',
   };
@@ -23,9 +24,9 @@ test('getUser-success', () => {
 test('create-user-success', async () => {
   dynamoDBMock.on(PutItemCommand).resolves({});
 
-  const result = await userService.createUser({ firstName: 'Rahul', lastName: 'Dravid' });
+  const result = await userService.createUser({ username: 'rdravid', firstName: 'Rahul', lastName: 'Dravid' });
 
   expect(result).not.toBeFalsy();
-  expect(result.userId).not.toBeFalsy();
-  expect(isValidUUID(result.userId)).toBe(true);
+  expect(result.id).not.toBeFalsy();
+  expect(isValidUUID(result.id)).toBe(true);
 });

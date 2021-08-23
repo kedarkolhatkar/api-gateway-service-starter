@@ -10,11 +10,11 @@ import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
 const getUserService = (userTableName) => {
   /**
    * Gets user with userId
-   * @param {} userId
+   * @param {} id
    * @returns user item with userId
    */
-  const getUser = (userId) => ({
-    userId,
+  const getUser = (id) => ({
+    id,
     firstName: 'Radha',
     lastName: 'Krishna',
   });
@@ -43,7 +43,7 @@ const getUserService = (userTableName) => {
 
     try {
       await client.send(command);
-      return { userId };
+      return { id: userId };
     } catch (error) {
       throw new createHttpError.InternalServerError(`Error saving user in the database: ${error}`);
     }
