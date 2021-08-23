@@ -14,26 +14,34 @@ const getUserService = (userTableName) => {
    * @returns user item with userId
    */
   const getUser = async (id) => {
-    const client = new DynamoDBClient({ region: process.env.AWS_REGION });
-    const input = {
-      TableName: userTableName,
-      Key: {
-        userId: {
-          S: id,
-        },
-      },
-    };
-
-    const command = new GetItemCommand(input);
     try {
-      await client.send(command);
+      const client = new DynamoDBClient({ region: process.env.AWS_REGION });
+      const input = {
+        TableName: userTableName,
+        Key: {
+          userId: {
+            S: id,
+          },
+        },
+      };
+
+      const command = new GetItemCommand(input);
+      const result = await client.send(command);
+      if (!result || !result.Item) {
+        throw new createHttpError.NotFound(`user not found. id: ${id}`);
+      }
+
+      // console.log(result);
       return {
-        id,
-        firstName: 'Radha',
-        lastName: 'Krishna',
+        id: result.Item.userId.S,
+        firstName: result.Item.firstName.S,
+        lastName: result.Item.lastName.S,
       };
     } catch (error) {
-      throw new createHttpError.InternalServerError(`Error getting user from database: ${error}`);
+      if (createHttpError.isHttpError(error)) throw error;
+      else {
+        throw new createHttpError.InternalServerError('Error getting user from database', error);
+      }
     }
   };
 

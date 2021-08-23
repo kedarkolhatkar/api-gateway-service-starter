@@ -6,41 +6,6 @@
   },
   "item": [
     {
-      "name": "get-user-success",
-      "event": [
-        {
-          "listen": "test",
-          "script": {
-            "exec": [
-              "pm.test(\"Status code is 200\", function () {",
-              "    pm.response.to.have.status(200);",
-              "});",
-              "",
-              "pm.test(\"Returned user has correct attributes\", function () {",
-              "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData.id).to.eql(\"1\");",
-              "    pm.expect(jsonData.firstName).to.eql(\"Radha\");",
-              "    pm.expect(jsonData.lastName).to.eql(\"Krishna\");",
-              "});",
-              "",
-              ""
-            ],
-            "type": "text/javascript"
-          }
-        }
-      ],
-      "request": {
-        "method": "GET",
-        "header": [],
-        "url": {
-          "raw": "{{baseUrl}}/users/1",
-          "host": ["{{baseUrl}}"],
-          "path": ["users", "1"]
-        }
-      },
-      "response": []
-    },
-    {
       "name": "create-user-success",
       "event": [
         {
@@ -78,6 +43,41 @@
           "raw": "{{baseUrl}}/users",
           "host": ["{{baseUrl}}"],
           "path": ["users"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "get-user-success",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test(\"Status code is 200\", function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test(\"Returned user has correct attributes\", function () {",
+              "    var jsonData = pm.response.json();",
+              "    pm.expect(jsonData.id).to.eql(\"0c7d87e1-b753-4149-841b-a75beabdf9ac\");",
+              "    pm.expect(jsonData.firstName).to.eql(\"Kedar\");",
+              "    pm.expect(jsonData.lastName).to.eql(\"Kolhatkar\");",
+              "});",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/users/0c7d87e1-b753-4149-841b-a75beabdf9ac",
+          "host": ["{{baseUrl}}"],
+          "path": ["users", "0c7d87e1-b753-4149-841b-a75beabdf9ac"]
         }
       },
       "response": []

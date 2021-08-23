@@ -1,6 +1,6 @@
 {
   "resource": "/users/{user}",
-  "path": "/users/1",
+  "path": "/users/0c7d87e1-b753-4149-841b-a75beabdf9ac",
   "httpMethod": "GET",
   "headers": {
     "Accept": "*/*",
@@ -43,7 +43,7 @@
   "queryStringParameters": null,
   "multiValueQueryStringParameters": null,
   "pathParameters": {
-    "user": "1"
+    "user": "0c7d87e1-b753-4149-841b-a75beabdf9ac1"
   },
   "stageVariables": null,
   "requestContext": {
@@ -52,7 +52,7 @@
     "httpMethod": "GET",
     "extendedRequestId": "EFi4gHx9oAMF2yA=",
     "requestTime": "15/Aug/2021:02:40:28 +0000",
-    "path": "/prod/users/1",
+    "path": "/prod/users/0c7d87e1-b753-4149-841b-a75beabdf9ac",
     "accountId": "729288039836",
     "protocol": "HTTP/1.1",
     "stage": "prod",

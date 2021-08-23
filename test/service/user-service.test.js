@@ -4,11 +4,11 @@ import { beforeEach, test, expect } from '@jest/globals';
 import { getUserService } from '../../src/service/user-service';
 import { isValidUUID } from '../utils/test-util';
 
-const dynamoDBMock = mockClient(DynamoDBClient);
+const ddbMock = mockClient(DynamoDBClient);
 const userService = getUserService('user-table');
 
 beforeEach(() => {
-  dynamoDBMock.reset();
+  ddbMock.reset();
 });
 
 test('get-user-success', async () => {
@@ -18,13 +18,30 @@ test('get-user-success', async () => {
     lastName: 'Krishna',
   };
 
-  dynamoDBMock.on(GetItemCommand).resolves(expectedUser);
+  ddbMock
+    .on(GetItemCommand, {
+      TableName: 'user-table',
+      Key: {
+        userId: {
+          S: '1',
+        },
+      },
+    })
+    .resolves({
+      Item: {
+        userId: { S: '1' },
+        firstName: { S: 'Radha' },
+        lastName: { S: 'Krishna' },
+      },
+    });
+
   const result = await userService.getUser('1');
+  ddbMock.calls();
   expect(expectedUser).toEqual(result);
 });
 
 test('create-user-success', async () => {
-  dynamoDBMock.on(PutItemCommand).resolves({});
+  ddbMock.on(PutItemCommand).resolves({});
 
   const result = await userService.createUser({ username: 'rdravid', firstName: 'Rahul', lastName: 'Dravid' });
 
