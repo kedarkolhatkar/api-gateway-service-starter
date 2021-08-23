@@ -1,4 +1,4 @@
-import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { DynamoDBClient, GetItemCommand, PutItemCommand } from '@aws-sdk/client-dynamodb';
 import { mockClient } from 'aws-sdk-client-mock';
 import { beforeEach, test, expect } from '@jest/globals';
 import { getUserService } from '../../src/service/user-service';
@@ -11,14 +11,16 @@ beforeEach(() => {
   dynamoDBMock.reset();
 });
 
-test('get-user-success', () => {
+test('get-user-success', async () => {
   const expectedUser = {
-    id: 1,
+    id: '1',
     firstName: 'Radha',
     lastName: 'Krishna',
   };
 
-  expect(expectedUser).toEqual(getUserService('user-table').getUser(1));
+  dynamoDBMock.on(GetItemCommand).resolves(expectedUser);
+  const result = await userService.getUser('1');
+  expect(expectedUser).toEqual(result);
 });
 
 test('create-user-success', async () => {

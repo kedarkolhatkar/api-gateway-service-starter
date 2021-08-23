@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 import createHttpError from 'http-errors';
-import { DynamoDBClient, PutItemCommand } from '@aws-sdk/client-dynamodb';
+import { DynamoDBClient, GetItemCommand, PutItemCommand } from '@aws-sdk/client-dynamodb';
 
 /**
  * Return userService object that provides functionality to manager user
@@ -13,11 +13,24 @@ const getUserService = (userTableName) => {
    * @param {} id
    * @returns user item with userId
    */
-  const getUser = (id) => ({
-    id,
-    firstName: 'Radha',
-    lastName: 'Krishna',
-  });
+  const getUser = async (id) => {
+    const client = new DynamoDBClient({ region: process.env.AWS_REGION });
+    const input = {
+      TableName: userTableName,
+    };
+
+    const command = new GetItemCommand(input);
+    try {
+      await client.send(command);
+      return {
+        id,
+        firstName: 'Radha',
+        lastName: 'Krishna',
+      };
+    } catch (error) {
+      throw new createHttpError.InternalServerError(`Error saving user in the database: ${error}`);
+    }
+  };
 
   /**
    * Saves user item in the DynamoDB table. User ID is generated while saving.
