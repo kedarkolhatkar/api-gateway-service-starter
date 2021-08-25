@@ -1,7 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import createHttpError from 'http-errors';
-import { DynamoDBClient, GetItemCommand, PutItemCommand } from '@aws-sdk/client-dynamodb';
-
+import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
+import { DynamoDBDocumentClient, GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 /**
  * Return userService object that provides functionality to manager user
  * @param {*} userTableName
@@ -16,30 +16,20 @@ const getUserService = (userTableName) => {
   const getUser = async (id) => {
     try {
       const client = new DynamoDBClient({ region: process.env.AWS_REGION });
+      const ddbDocClient = DynamoDBDocumentClient.from(client);
       const input = {
         TableName: userTableName,
         Key: {
-          userId: {
-            S: id,
-          },
+          userId: id,
         },
       };
 
-      const command = new GetItemCommand(input);
-      const result = await client.send(command);
-      if (!result || !result.Item) {
-        throw new createHttpError.NotFound(`user not found. id: ${id}`);
-      }
-
-      // console.log(result);
-      return {
-        id: result.Item.userId.S,
-        firstName: result.Item.firstName.S,
-        lastName: result.Item.lastName.S,
-      };
+      const result = await ddbDocClient.send(new GetCommand(input));
+      return result.Item;
     } catch (error) {
       if (createHttpError.isHttpError(error)) throw error;
       else {
+        // console.error(error);
         throw new createHttpError.InternalServerError('Error getting user from database', error);
       }
     }
@@ -51,24 +41,20 @@ const getUserService = (userTableName) => {
    * @returns user ID of saved user item
    */
   const createUser = async (user) => {
-    const userId = uuidv4();
+    const client = new DynamoDBClient({ region: process.env.AWS_REGION });
+    const ddbDocClient = DynamoDBDocumentClient.from(client);
 
-    const item = {
-      userId: { S: userId },
-      firstName: { S: user.firstName },
-      lastName: { S: user.lastName },
-    };
+    const userId = uuidv4();
 
     const input = {
       TableName: userTableName,
-      Item: item,
+      Item: { ...user, userId },
     };
 
-    const client = new DynamoDBClient({ region: process.env.AWS_REGION });
-    const command = new PutItemCommand(input);
+    const command = new PutCommand(input);
 
     try {
-      await client.send(command);
+      await ddbDocClient.send(command);
       return { id: userId };
     } catch (error) {
       throw new createHttpError.InternalServerError(`Error saving user in the database: ${error}`);

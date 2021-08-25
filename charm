@@ -20,13 +20,17 @@ def synth():
 
 def unitTest():
     click.echo("Running test command")
-    subprocess.check_call('npm test', shell=True)
+    subprocess.check_call('jest test/unit/**/*.test.js', shell=True)
+
+def cdkTest():
+    click.echo("Running cdkTest command")
+    subprocess.check_call('jest test/cdk/**/*.test.ts', shell=True)
 
 def precommit():
     click.echo("Running precommit tasks")
     subprocess.check_call('npm run prettier', shell=True)
     subprocess.check_call('npm run lint', shell=True)
-    subprocess.check_call('npm test', shell=True)
+    subprocess.check_call('jest test/unit/**/*.test.js', shell=True)
 
 def lintstaged():
     click.echo("Running lintstaged tasks")
@@ -60,6 +64,10 @@ def synthCommand():
 @cli.command(name='test')
 def testCommand():
     unitTest()
+
+@cli.command(name='cdk-test')
+def cdkTestCommmand():
+    cdkTest()
 
 @cli.command(name='precommit')
 def precommitCommand():
