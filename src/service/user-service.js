@@ -1,13 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
 import createHttpError from 'http-errors';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
+import { GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 /**
  * Return userService object that provides functionality to manager user
  * @param {*} userTableName
  * @returns userService
  */
-const getUserService = (userTableName) => {
+const getUserService = (userTableName, ddbDocClient) => {
   /**
    * Gets user with userId
    * @param {} id
@@ -15,8 +14,6 @@ const getUserService = (userTableName) => {
    */
   const getUser = async (id) => {
     try {
-      const client = new DynamoDBClient({ region: process.env.AWS_REGION });
-      const ddbDocClient = DynamoDBDocumentClient.from(client);
       const input = {
         TableName: userTableName,
         Key: {
@@ -29,7 +26,6 @@ const getUserService = (userTableName) => {
     } catch (error) {
       if (createHttpError.isHttpError(error)) throw error;
       else {
-        // console.error(error);
         throw new createHttpError.InternalServerError('Error getting user from database', error);
       }
     }
@@ -41,9 +37,6 @@ const getUserService = (userTableName) => {
    * @returns user ID of saved user item
    */
   const createUser = async (user) => {
-    const client = new DynamoDBClient({ region: process.env.AWS_REGION });
-    const ddbDocClient = DynamoDBDocumentClient.from(client);
-
     const userId = uuidv4();
 
     const input = {

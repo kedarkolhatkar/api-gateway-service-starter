@@ -60,7 +60,7 @@
               "",
               "pm.test(\"Returned user has correct attributes\", function () {",
               "    var jsonData = pm.response.json();",
-              "    pm.expect(jsonData.id).to.eql(\"0c7d87e1-b753-4149-841b-a75beabdf9ac\");",
+              "    pm.expect(jsonData.userId).to.eql(\"0c76624a-86b1-460b-b20a-7c0c12934948\");",
               "    pm.expect(jsonData.firstName).to.eql(\"Kedar\");",
               "    pm.expect(jsonData.lastName).to.eql(\"Kolhatkar\");",
               "});",
@@ -75,9 +75,9 @@
         "method": "GET",
         "header": [],
         "url": {
-          "raw": "{{baseUrl}}/users/0c7d87e1-b753-4149-841b-a75beabdf9ac",
+          "raw": "{{baseUrl}}/users/0c76624a-86b1-460b-b20a-7c0c12934948",
           "host": ["{{baseUrl}}"],
-          "path": ["users", "0c7d87e1-b753-4149-841b-a75beabdf9ac"]
+          "path": ["users", "0c76624a-86b1-460b-b20a-7c0c12934948"]
         }
       },
       "response": []

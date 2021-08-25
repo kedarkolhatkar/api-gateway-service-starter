@@ -6,7 +6,7 @@ import { isValidUUID } from '../../utils/test-util';
 
 describe('user-service tests', () => {
   const ddbMock = mockClient(DynamoDBDocumentClient);
-  const userService = getUserService('user-table');
+  const userService = getUserService('user-table', ddbMock);
 
   beforeEach(() => {
     ddbMock.reset();

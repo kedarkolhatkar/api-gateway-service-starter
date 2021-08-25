@@ -20,7 +20,7 @@
     "sam-get-user": "npm run bundle-development && sam local invoke -e ./sam/get-user-event.json -t ./sam/APIStack-template.json 2>&1 | tr \"\r\" \"\n\"",
     "sam-create-user": "npm run bundle-development && sam local invoke -e ./sam/create-user-event.json -t ./sam/APIStack-template.json 2>&1 | tr \"\r\" \"\n\"",
     "cdk": "cdk",
-    "test": "jest",
+    "test": "jest test/unit/**/*.js",
     "test:watch": "jest --watch",
     "prepare": "husky install"
   },

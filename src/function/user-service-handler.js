@@ -2,16 +2,14 @@ import middy from '@middy/core';
 import httpErrorHandler from '@middy/http-error-handler';
 import createHttpError from 'http-errors';
 import { validateRequest } from './http-handler-utils';
-import { getUserService } from '../service/user-service';
+import { serviceDependencyInjector } from './middleware/service-dependecy-injector';
 
 // base handler
-const baseHandler = async (event) => {
+const baseHandler = async (event, context) => {
   console.log(`baseHandler event: ${JSON.stringify(event)}`);
 
   validateRequest(event);
-  const userService = getUserService(process.env.USER_TABLE_NAME);
-  // const userService = getUserService('test');
-
+  const { userService } = context;
   let result = {};
 
   // TODO: We need to build path router
@@ -32,6 +30,6 @@ const baseHandler = async (event) => {
   };
 };
 
-const handler = middy(baseHandler).use(httpErrorHandler());
+const handler = middy(baseHandler).use(serviceDependencyInjector()).use(httpErrorHandler());
 
 export { handler };
