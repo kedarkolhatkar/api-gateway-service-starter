@@ -1,5 +1,8 @@
 import createHttpError from 'http-errors';
 
+// Supported Resources
+const RESOURCE_USERS = 'users';
+
 const getResourceName = (resource) => {
   const pathArray = resource.split('/');
 
@@ -7,8 +10,8 @@ const getResourceName = (resource) => {
 };
 
 const validateRequest = (event) => {
-  if (!event.resource || getResourceName(event.resource) !== 'users') {
-    throw new createHttpError.BadRequest('Invalid resource provided: ', event.resource);
+  if (!event.resource || getResourceName(event.resource) !== RESOURCE_USERS) {
+    throw new createHttpError.BadRequest('Resource not supported: ', event.resource);
   }
 };
 

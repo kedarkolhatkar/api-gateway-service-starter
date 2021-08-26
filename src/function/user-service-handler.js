@@ -4,7 +4,13 @@ import createHttpError from 'http-errors';
 import { validateRequest } from './http-handler-utils';
 import { serviceDependencyInjector } from './middleware/service-dependecy-injector';
 
-// base handler
+/**
+ * This is the base handler function which processes the event.
+ * @async
+ * @param {*} event Lambda event object that includes requestParameters, pathParameters etc.
+ * @param {*} context Lambda cotext object
+ * @returns Response which the result of the operation
+ */
 const baseHandler = async (event, context) => {
   console.log(`baseHandler event: ${JSON.stringify(event)}`);
 

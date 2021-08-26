@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 import createHttpError from 'http-errors';
 import { GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
+
 /**
  * Return userService object that provides functionality to manager user
  * @param {*} userTableName
@@ -9,8 +10,8 @@ import { GetCommand, PutCommand } from '@aws-sdk/lib-dynamodb';
 const getUserService = (userTableName, ddbDocClient) => {
   /**
    * Gets user with userId
-   * @param {} id
-   * @returns user item with userId
+   * @param {string} id Id of the user to get
+   * @returns user entity with userId=id
    */
   const getUser = async (id) => {
     try {
@@ -33,20 +34,20 @@ const getUserService = (userTableName, ddbDocClient) => {
 
   /**
    * Saves user item in the DynamoDB table. User ID is generated while saving.
-   * @param {} user
-   * @returns user ID of saved user item
+   * @param {object} user user entity to create
+   * @returns Id of the saved user entity
    */
   const createUser = async (user) => {
-    const userId = uuidv4();
-
-    const input = {
-      TableName: userTableName,
-      Item: { ...user, userId },
-    };
-
-    const command = new PutCommand(input);
-
     try {
+      const userId = uuidv4();
+
+      const input = {
+        TableName: userTableName,
+        Item: { ...user, userId },
+      };
+
+      const command = new PutCommand(input);
+
       await ddbDocClient.send(command);
       return { id: userId };
     } catch (error) {
